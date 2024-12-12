@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -10,6 +10,7 @@ function Addproject() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const {addProjectContext,setAddProjectContext}=useContext(addProjectContextResponse)
   const [projectDetails,setProjectdetails]=useState({
     title:"",
     language:"",
@@ -45,6 +46,7 @@ function Addproject() {
        
         const response =await addProjectAPI(reqbody,reqheader)
         console.log(response);
+        setAddProjectContext(response)
         if(response.status==200){
           alert('project added successfully')
           handleClose()

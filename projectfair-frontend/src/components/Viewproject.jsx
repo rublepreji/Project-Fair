@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { PiArrowSquareOutFill } from "react-icons/pi";
 import { FaGithub } from "react-icons/fa";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { getUserProjectAPI } from '../../Services/AllApi';
+import { addprojectContextResponse } from '../ContextAPI/ContextShare';
+
 function Viewproject() {
+  const {addProject,setAddProjectContext}=useContext(addprojectContextResponse)
   const [token,settoken]=useState('')
   const [projectDetails,setProjectdetails]=useState([])
   const getuserproject=async()=>{
     if(token){
+      
       const reqheader={
         "content-Type":"multipart/form-json",
         "Authorization":`Bearer ${token}`
@@ -41,7 +45,6 @@ function Viewproject() {
                  <RiDeleteBinLine className='mx-1'/>
                  </span>
                  </div>
-
             )):'No projects'
           }        
       </div>
