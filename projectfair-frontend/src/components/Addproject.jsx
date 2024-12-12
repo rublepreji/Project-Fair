@@ -29,7 +29,7 @@ function Addproject() {
       reqbody.append('title',title)
       reqbody.append('language',language)
       reqbody.append('gitHub',gitHub)
-      reqbody.append('website',gitHub)
+      reqbody.append('website',website)
       reqbody.append('overview',overview)
       reqbody.append('projectImg',projectImg)
 

@@ -20,4 +20,8 @@ router.post('/api/addProject',jwtMiddlewares,multerMiddleware.single('projectImg
 
 router.get('/api/getAllUserProject',jwtMiddlewares,projectController.getAllUserProjectAPI)
 
+router.get('/api/getHomeProject',projectController.getHomeProjectAPI)
+
+router.get("/api/getAUserProject",jwtMiddlewares,projectController.getUserProjectAPI)
+
 module.exports=router

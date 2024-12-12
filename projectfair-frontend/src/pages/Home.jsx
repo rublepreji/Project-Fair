@@ -1,13 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Projectcard from '../components/Projectcard';
+import { homeProjectAPI } from '../../Services/AllApi';
 
 function Home() {
   //hold token from sessionStorage
   const [token,setToken]=useState("")
 
+
+  const [homeProject,setHomeProject]=useState([])
+  const getHomeProject=async()=>{
+    const response = await homeProjectAPI()
+    console.log(response);
+    setHomeProject(response.data)
+  }
+ console.log(homeProject);
+ 
+
   useEffect(()=>{
     setToken(sessionStorage.getItem("token"))
+    getHomeProject()
   },[token])
   return (
     <div>
@@ -36,11 +48,14 @@ function Home() {
         <div className="div">
           <h3>Explore our projects</h3>
           <div className="row p-5">
-            <div className="col-4">
-              <Projectcard/>
+           {
+            homeProject.length>0? homeProject.map(project=>(
+              <div className="col-4">
+              <Projectcard project={project}/>
             </div>
-            <div className="col-4"><Projectcard/></div>
-            <div className="col-4"><Projectcard/></div>
+            )):'No projects'
+           }
+            
           </div>
         </div>
         <div className="div text-center">

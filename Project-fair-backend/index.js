@@ -19,6 +19,7 @@ serverApp.use(cors())
 serverApp.use(express.json())
 // serverApp.use(ApplicationMiddlewares)
 serverApp.use(router)
+serverApp.use('/uploads',express.static('./uploads'))
 
 //4 create a port
 PORT=3000 || process.env.PORT

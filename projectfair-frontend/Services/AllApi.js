@@ -10,3 +10,12 @@ export const loginAPI=async(reqBody)=>{
 export const addProjectAPI=async(reqBody,reqHeader)=>{
     return await commonAPI("post",`${serverURL}/api/addProject`,reqBody,reqHeader)
 }
+export const homeProjectAPI=async()=>{
+    return await commonAPI("get",`${serverURL}/api/getHomeProject`,"","")
+}
+export const getAllUserProjectAPI=async(reqHeader)=>{
+    return await commonAPI("get",`${serverURL}/api/getAllUserProject`,"",reqHeader)
+}
+export const getUserProjectAPI=async(reqHeader)=>{
+    return await commonAPI("get",`${serverURL}/api/getAUserProject`,"",reqHeader)
+}

@@ -24,7 +24,12 @@ exports.addProjectAPI=async(req,res)=>{
 }
 
 exports.getHomeProjectAPI=async(req,res)=>{
-
+    try{
+        const response= await projects.find().limit(3)
+        res.status(200).json(response)
+    }catch(err){
+        res.status(402).json(err)
+    }
 }
 exports.getAllUserProjectAPI=async(req,res)=>{
     try{
@@ -35,5 +40,11 @@ exports.getAllUserProjectAPI=async(req,res)=>{
     }
 }
 exports.getUserProjectAPI=async(req,res)=>{
-
+    const userId = req.payload
+    try{
+        const response= await projects.find({userId})
+        res.status(200).json(response)
+    }catch(err){
+        res.status(402).json(err)
+    }
 }
