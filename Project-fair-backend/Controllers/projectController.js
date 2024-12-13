@@ -23,6 +23,40 @@ exports.addProjectAPI=async(req,res)=>{
     
 }
 
+
+exports.editProjectAPI=async(req,res)=>{
+    console.log('Inside edit ProjectAPI');
+    const {title,language,gitHub,website,overview,projectImg}=req.body
+    const updateImg = req.file? req.file.filename:projectImg
+    const userId = req.payload
+    const {projectId}=req.params
+    console.log(projectImg);
+    console.log(title,language,gitHub,website,overview,userId);
+    
+    
+
+    try{
+        console.log('Inside Try');
+        const project = await projects.findByAndUpdate(
+            {_id:projectId},
+            {
+                title:title,
+                language:language,
+                gitHub:gitHub,
+                website:website,
+                overview:overview,
+                projectImg:updateImg
+            }
+        )
+       await project.save()
+       res.status(200).json("Project Updated...")
+    }
+    catch(err){
+        res.status(402).json(err)
+    }
+    
+}
+
 exports.getHomeProjectAPI=async(req,res)=>{
     try{
         const response= await projects.find().limit(3)

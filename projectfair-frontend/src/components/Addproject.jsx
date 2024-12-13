@@ -5,12 +5,14 @@ import Modal from 'react-bootstrap/Modal';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { addProjectAPI } from '../../Services/AllApi';
+import { addprojectContextResponse } from '../ContextAPI/ContextShare';
+
 function Addproject() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const {addProjectContext,setAddProjectContext}=useContext(addProjectContextResponse)
+  const {addprojectContext,setAddprojectContext}=useContext(addprojectContextResponse)
   const [projectDetails,setProjectdetails]=useState({
     title:"",
     language:"",
@@ -46,7 +48,7 @@ function Addproject() {
        
         const response =await addProjectAPI(reqbody,reqheader)
         console.log(response);
-        setAddProjectContext(response)
+        setAddprojectContext(response.data)
         if(response.status==200){
           alert('project added successfully')
           handleClose()

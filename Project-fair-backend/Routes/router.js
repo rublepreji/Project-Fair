@@ -24,4 +24,6 @@ router.get('/api/getHomeProject',projectController.getHomeProjectAPI)
 
 router.get("/api/getAUserProject",jwtMiddlewares,projectController.getUserProjectAPI)
 
+router.put('/api/editproject/:projectId',jwtMiddlewares,multerMiddleware.single('projectImg'),projectController.editProjectAPI)
+
 module.exports=router
