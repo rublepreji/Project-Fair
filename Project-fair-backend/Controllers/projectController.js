@@ -37,7 +37,7 @@ exports.editProjectAPI=async(req,res)=>{
 
     try{
         console.log('Inside Try');
-        const project = await projects.findByAndUpdate(
+        const project = await projects.findByIdAndUpdate(
             {_id:projectId},
             {
                 title:title,
@@ -49,7 +49,7 @@ exports.editProjectAPI=async(req,res)=>{
             }
         )
        await project.save()
-       res.status(200).json("Project Updated...")
+       res.status(200).json(project)
     }
     catch(err){
         res.status(402).json(err)
@@ -81,4 +81,19 @@ exports.getUserProjectAPI=async(req,res)=>{
     }catch(err){
         res.status(402).json(err)
     }
+}
+
+exports.deleteProjectAPI=async(req,res)=>{
+    console.log("Inside delete API");
+    const {projectId}=req.params
+    console.log(projectId);
+    try{
+        console.log("Hi");
+        
+        const project = await projects.findByIdAndDelete({_id:projectId})
+        res.status(200).json(project)
+    }catch(err){
+        res.status(406).json(err)
+    }
+        
 }

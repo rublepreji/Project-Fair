@@ -6,9 +6,13 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { MdModeEditOutline } from "react-icons/md";
 import { editProjectAPI } from '../../Services/AllApi';
+import { addEditContextResponse } from '../ContextAPI/ContextShare';
+
 function Editproject({project}) {
+
+  const {editContext,setEditContext}=useContext(addEditContextResponse)
+
   const [show, setShow] = useState(false);
-  
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [projectDetails,setProjectdetails]=useState({
@@ -48,7 +52,8 @@ function Editproject({project}) {
           console.log(response);
           
              if(response.status == 200 ){
-              alert(response.data)
+              setEditContext(response.data)
+              alert('Project Updated...')
               handleClose();
              }
              else{
@@ -61,7 +66,7 @@ function Editproject({project}) {
         }
       }
       }
-      
+   //Edit api function  
    useEffect(()=>{
      if(projectDetails.projectImg){
       setpreview(URL.createObjectURL(projectDetails.projectImg))
@@ -69,7 +74,7 @@ function Editproject({project}) {
     },[projectDetails.projectImg])
   return (
     <div>
-      <MdModeEditOutline onClick={handleShow}/>
+      <MdModeEditOutline className='mb-3' onClick={handleShow}/>
       <Modal
         show={show}
         onHide={handleClose}
@@ -90,20 +95,20 @@ function Editproject({project}) {
             <p className='text-danger'>Only allowes following file type foemats .png, .jpng, .jpg</p>
           </div>
           <div className="col-6">
-          <FloatingLabel controlId="floatingInput" onChange={e=>setProjectdetails({...projectDetails,title:e.target.value})} label="Title"className="mb-3">
-          <Form.Control type="text" placeholder="Title" />
+          <FloatingLabel  controlId="floatingInput" onChange={e=>setProjectdetails({...projectDetails,title:e.target.value})} label="Title"className="mb-3">
+          <Form.Control value={projectDetails.title} type="text" placeholder="Title" />
           </FloatingLabel>
           <FloatingLabel controlId="floatingPassword" onChange={e=>setProjectdetails({...projectDetails,language:e.target.value})} label="Language"className="mb-3">
-          <Form.Control type="text" placeholder="Language" />
+          <Form.Control  value={projectDetails.language} type="text" placeholder="Language" />
           </FloatingLabel>
           <FloatingLabel controlId="floatingPassword" onChange={e=>setProjectdetails({...projectDetails,gitHub:e.target.value})} label="GitHub"className="mb-3">
-          <Form.Control type="text" placeholder="GitHub" />
+          <Form.Control  value={projectDetails.gitHub} type="text" placeholder="GitHub" />
           </FloatingLabel>
           <FloatingLabel controlId="floatingPassword" onChange={e=>setProjectdetails({...projectDetails,website:e.target.value})} label="WebSite"className="mb-3">
-          <Form.Control type="text" placeholder="WebSite" />
+          <Form.Control  value={projectDetails.website} type="text" placeholder="WebSite" />
           </FloatingLabel>
           <FloatingLabel controlId="floatingPassword" onChange={e=>setProjectdetails({...projectDetails,overview:e.target.value})} label="Overview"className="mb-3">
-          <Form.Control type="text-area" placeholder="Overview" />
+          <Form.Control  value={projectDetails.overview} type="text-area" placeholder="Overview" />
           </FloatingLabel>
           </div>
         </div>
@@ -112,7 +117,7 @@ function Editproject({project}) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="dark" onClick={handleEdit} >Understood</Button>
+          <Button variant="dark" onClick={handleEdit} >Update</Button>
         </Modal.Footer>
       </Modal>
     </div>
